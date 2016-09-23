@@ -2,6 +2,8 @@
 return array(
     //SESSION配置信息
     'SESSION_OPTIONS' => array(
+        'domain' => 'example.com',
+        'name'   => 'laravel_session',
         'type'   => 'LaravelDB',//session采用数据库保存
         'expire' => 1440,//session过期时间，如果不设就是php.ini中设置的默认值
     ),
