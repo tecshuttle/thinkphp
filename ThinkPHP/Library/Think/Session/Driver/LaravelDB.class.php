@@ -134,10 +134,10 @@ class LaravelDB
 
         //fixme 过期时间与Laravel不同，先去掉不用。
         //$res = mysqli_query($hander, "SELECT session_data AS data FROM " . $this->sessionTable . " WHERE id = '$sessID'   AND session_expire >" . time());
-        $res = mysqli_query($hander, "SELECT payload AS data FROM " . $this->sessionTable . " WHERE id = '$sessID' " );
+        $res = mysqli_query($hander, "SELECT payload AS data FROM " . $this->sessionTable . " WHERE id = '$sessID' ");
         if ($res) {
             $row = mysqli_fetch_assoc($res);
-            return base64_decode($row['data']);
+            return base64_decode($row['data']);  //for laravel
         }
         return "";
     }
@@ -150,7 +150,7 @@ class LaravelDB
      */
     public function write($sessID, $sessDataRaw)
     {
-        $sessData = base64_encode($sessDataRaw);
+        $sessData = base64_encode($sessDataRaw);  //for Laravel
         $hander = is_array($this->hander) ? $this->hander[0] : $this->hander;
         $expire = time() + $this->lifeTime;
         mysqli_query($hander, "REPLACE INTO  " . $this->sessionTable . " (id, last_activity, payload)  VALUES( '$sessID', '$expire',  '$sessData')");

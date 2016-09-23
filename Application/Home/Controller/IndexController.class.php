@@ -16,6 +16,32 @@ class IndexController extends Controller
         $session = new SessionModel();
         $list = $session->select();
 
-        dump($list);
+        echo session_id();
+        //phpinfo();
+        //echo $_SESSION['username'];
+        //echo session('username');
+        dump($_SESSION);
+
+        //dump($list);
+    }
+
+    public function session()
+    {
+        $_SESSION['username'] = 'Tom';
+        $_SESSION['old'] = '37';
+
+        echo 'Something wrote in SESSION.';
+    }
+
+    public function set_cookie()
+    {
+        $sid = $_GET['sid'];
+        setcookie('laravel_session', $sid, time() + 3600, '/');
+        echo 'You are logged';
+    }
+
+    public function login()
+    {
+        header('Location://laravel.example.com/get_session_id?redirect=thinkphp.greatwall.com');
     }
 }

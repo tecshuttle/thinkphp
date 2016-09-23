@@ -1,8 +1,10 @@
 <?php
+$sub_domain = preg_replace('/^[a-z]+./', '', $_SERVER['HTTP_HOST']);  //取二级域名
+
 return array(
     //SESSION配置信息
     'SESSION_OPTIONS' => array(
-        'domain' => 'example.com',
+        'domain' => ($sub_domain === 'example.com' ? 'example.com' : ''),
         'name'   => 'laravel_session',
         'type'   => 'LaravelDB',//session采用数据库保存
         'expire' => 1440,//session过期时间，如果不设就是php.ini中设置的默认值
